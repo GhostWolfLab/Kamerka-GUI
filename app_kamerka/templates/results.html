@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% block page_content %}
+    <head>
+        <!-- META SECTION -->
+        <title>结果 - ꓘamerka</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- END META SECTION -->
+
+        <!-- CSS INCLUDE -->
+        <script src="{% static 'js/d3.js' %}"></script>
+        <script src="{% static 'js/d3.layout.cloud.js' %}" charset="UTF-8"></script>
+        <script src="{% static 'js/d3.wordcloud.js' %}" charset="UTF-8"></script>
+        <link rel="stylesheet" type="text/css" id="theme" href="{% static 'css/theme-default.css' %}"/>
+        <!-- EOF CSS INCLUDE -->
+    </head>
+    <body>
+        <!-- START PAGE CONTAINER -->
+        <div class="page-container">
+
+            <!-- START PAGE SIDEBAR -->
+            <div class="page-sidebar">
+                <!-- START X-NAVIGATION -->
+                <ul class="x-navigation">
+                    <li class="xn-logo">
+                        <a href="/">ꓘamerka</a>
+                        <a href="#" class="x-navigation-control"></a>
+                    </li>
+                    <li class="xn-profile">
+
+                        <div class="profile">
+                            <div class="profile-image">
+                            </div>
+                            <div class="profile-data">
+                                  <img width=200px height=200px src="https://www.offensiveosint.io/content/images/2020/07/OffensiveOsint-logo-RGB-2.png">
+
+                            </div>
+
+                        </div>
+                    </li>
+                    <li class="xn-title">导航</li>
+                    <li class="">
+                        <a href="/index"><span class="fa fa-desktop"></span> <span class="xn-text">仪表盘</span></a>
+                    </li>
+                    <li class="">
+                        <a href="/history"><span class="fa fa-files-o"></span> <span class="xn-text">历史</span></a>
+                    </li>
+                    <li class="">
+                        <a href="/map"><span class="fa fa-map-marker"></span> <span class="xn-text">地图</span></a>
+                    </li>
+                    <li class="">
+                        <a href="/devices"><span class="fa fa-search"></span> <span class="xn-text">搜索</span></a>
+                    </li>
+
+                                       <li class="">
+                        <a href="/gallery"><span class="fa fa-camera"></span> <span class="xn-text">陈列</span></a>
+                    </li>
+
+                    <li class="xn-title">部件</li>
+
+                    <li>
+                        <a href="/sources"><span class="fa fa-book"></span> <span class="xn-text">相关链接</span></a>
+                    </li>
+
+
+                </ul>
+                <!-- END X-NAVIGATION -->
+            </div>
+            <!-- END PAGE SIDEBAR -->
+
+            <!-- PAGE CONTENT -->
+            <div class="page-content" style="height: 100%">
+
+                <!-- START X-NAVIGATION VERTICAL -->
+                <ul class="x-navigation x-navigation-horizontal x-navigation-panel">
+                    <!-- TOGGLE NAVIGATION -->
+
+                    <!-- END TOGGLE NAVIGATION -->
+                    <!-- SEARCH -->
+
+                    <!-- END SEARCH -->
+                    <!-- SIGN OUT -->
+
+                    <!-- END SIGN OUT -->
+                    <!-- MESSAGES -->
+
+                    <!-- END MESSAGES -->
+                    <!-- TASKS -->
+
+                    <!-- END TASKS -->
+                </ul>
+                <!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+
+
+                </ul>
+                <!-- END BREADCRUMB -->
+
+                <!-- PAGE CONTENT WRAPPER -->
+
+                <!-- PAGE CONTENT WRAPPER -->
+                <div class="page-content-wrap">
+
+                    <!-- START WIDGETS -->
+                 <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default tabs">
+                                <ul class="nav nav-tabs nav-justified">
+                                    <li class="active"><a href="#tab8" data-toggle="tab">地图</a></li>
+                                    <li><a href="#tab9" data-toggle="tab">设备</a></li>
+                                    <li><a href="#tab10" data-toggle="tab">统计</a></li>
+                                </ul>
+                                <div class="panel-body tab-content">
+                                    <div class="tab-pane active" id="tab8">
+ <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Google 世界地图</h3>
+                                </div>
+                                <div class="panel-body panel-body-map">
+                                    <div id="google_world_map" style="width: 100%; height: 700px;"></div>
+
+
+                                </div>
+                                    </div>
+                                    </div>
+
+
+                                    <div class="tab-pane" id="tab9">
+              <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">设备</h3>
+
+
+                                </div>
+                                <div class="panel-body">
+                                        <table id="customers2" class="table datatable">
+                                            <thead>
+                                            <tr>
+                                                    <th>IP</th>
+                                                    <th>Type</th>
+                                                    <th>{% if device.nmap %} Ports {% else %} Product {% endif %}</th>
+                                                    <th>Port</th>
+                                                    <th>City</th>
+                                                    <th>Latitude</th>
+                                                    <th>Longitude</th>
+                                                    <th>CVE</th>
+                                                    <th>Indicator</th>
+                                                <th>Located</th>
+                                                    <th>Exploited</th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody style="color: #0064d7;">
+
+                                                {% for device in search %}
+                                                {% if device.located or device.exploited_scanned %}
+                                                <tr style="background:#ff00cd">
+                                                    {% else %}
+                                                    <tr>
+                                                {% endif %}
+
+                                                    <td>                                     <a href="{% url 'device' id=device.search_id ip=device.ip device_id=device.id %}">
+                                                        {{ device.ip }}</a></td>
+                                                    <td>{{ device.type }}</td>
+                                                    <td>{%if device.type == "NMAP" %} {{device.port}} {% else %} {{ device.product }}{% endif %}</td>
+                                                    <td>{{ device.port }}</td>
+                                                    <td>{{ device.city }}</td>
+                                                    <td>{{ device.lat }}</td>
+                                                    <td>{{ device.lon }}</td>
+                                                    <td>{{ device.vulns|slice:"1:-1" }}</td>
+                                                    <td>{% for a in device.indicator %}{{ a }} {% endfor %}</td>
+                                                    <td>{{ device.located }}</td>
+                                                   <td>{{ device.exploited_scanned }}</td>
+
+
+
+
+                                                </tr>
+
+
+                                            {% endfor %}
+
+                                            </tbody>
+                                        </table>
+</div>
+
+
+
+
+                                </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="tab10">
+
+                                    <!-- START DONUT CHART -->
+
+
+                <!-- END PAGE TITLE -->
+
+                <!-- PAGE CONTENT WRAPPER -->
+                <div class="page-content-wrap">
+
+                                                <div class="col-md-6">
+
+                            <!-- START DONUT CHART -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">所有端口</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div id="morris-horizontal" style="height: 300px;"></div>
+                                </div>
+                            </div>
+                            <!-- END DONUT CHART -->
+
+                        </div>
+                                            <div class="col-md-6">
+
+                            <!-- START DONUT CHART -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">漏洞</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div id="wordcloud" style="height: 300px;"></div>
+                                </div>
+                            </div>
+                            <!-- END DONUT CHART -->
+
+                        </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <!-- START BAR CHART -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">城市</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div id="morris-bar-example" style="height: 300px; "></div>
+                                </div>
+                            </div>
+                            <!-- END BAR CHART -->
+
+                        </div>
+                        <div class="col-md-6">
+
+                            <!-- START DONUT CHART -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">设备</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div id="morris-donut-example" style="height: 300px;"></div>
+                                </div>
+                            </div>
+                            <!-- END DONUT CHART -->
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- END PAGE CONTENT WRAPPER -->
+            </div>
+            <!-- END PAGE CONTENT -->
+        </div>
+        <!-- END PAGE CONTAINER -->
+
+                                </div>
+                            </div>
+
+                            <!-- START DATATABLE EXPORT -->
+
+                            </div>
+                <!-- END PAGE CONTENT WRAPPER -->
+            </div>
+            <!-- END PAGE CONTENT -->
+        </div>
+        <!-- END PAGE CONTAINER -->
+
+        <!-- MESSAGE BOX-->
+
+        </div>
+
+
+
+        <!-- END MESSAGE BOX--><script async defer
+    src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_key }}&callback=myMap&libraries=places" type="text/javascript"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!--<br>{% if device.screenshot %}
+marker['infowindow'] = new
+google.maps.InfoWindow({
+    content: '<div><img src="data:image/jpeg;base64,{{ device.screenshot }}"></div>'
+});
+{% endif %}-->
+<script type="text/javascript">
+var marker;
+var gm_map;
+var markerArray = [];
+{% for device in search %}
+    {% if forloop.first %}
+    var mumbai = new google.maps.LatLng({{ device.lat }},{{ device.lon }});
+    {% endif %}
+    {% endfor %}
+var infoWindow = new google.maps.InfoWindow();
+
+function initialize() {
+    var clusterMarkers = [
+              {% for device in search %}
+
+            marker = new google.maps.Marker({
+            position: new google.maps.LatLng({{device.lat}},{{device.lon}}),
+            map: gm_map,
+            {% if device.screenshot %}
+            title: "<a href={{device.search_id}}/{{device.id}}/{{device.ip}}> {{device.type}} - {{device.ip}}</a>",
+            {% else %}
+            title: "<a href={{device.search_id}}/{{device.id}}/{{device.ip}}> {{device.type}} - {{device.ip}}</a>",
+            {% endif %}
+            {% if device.type == "niagara" %}
+            icon: "{% static 'images/blue.png' %}",
+            {% elif device.type == "modbus" %}
+            icon: "{% static 'images/factory_orange.png' %}",
+            {% elif device.type == "bacnet" %}
+            icon: "{% static 'images/green.png' %}",
+            {% elif device.type == "siemens" %}
+            icon: "{% static 'images/pink.png' %}",
+            {% elif device.type == "ethernetip" %}
+            icon: "{% static 'images/purple' %}",
+            {% elif device.type == "dnp3" %}
+            icon: "{% static 'images/purple.png' %}",
+            {% elif device.type == "pcworx" %}
+            icon: "{% static 'images/light_purple.png' %}",
+            {% elif device.type == "iphart" %}
+            icon: "{% static 'images/orange2.png' %}",
+            {% elif device.type == "mitsubishi" %}
+            icon: "{% static 'images/white.png' %}",
+            {% elif device.type == "omron" %}
+            icon: "{% static 'images/blue2.png' %}",
+            {% elif device.type == "redlion" %}
+            icon: "{% static 'images/green2.png' %}",
+            {% elif device.type == "codesys" %}
+            icon: "{% static 'images/purple2.png' %}",
+            {% elif device.type == "iec" %}
+            icon: "{% static 'images/yellow2.png' %}",
+            {% elif device.type == "proconos" %}
+            icon: "{% static 'images/pink2.png' %}",
+            {% elif device.type == "nmea" %}
+            icon: "{% static 'images/sat.png' %}",
+            {% elif device.type == "axis" %}
+            icon: "{% static 'images/axis.png' %}",
+
+
+            {% elif device.type == "webcam" %}
+            icon: "{% static 'images/camera_black.png' %}",
+            {% elif device.type == "rtsp" %}
+            icon: "{% static 'images/camera_blue.png' %}",
+            {% elif device.type == "ipcamera" %}
+            icon: "{% static 'images/camera_blue2.png' %}",
+            {% elif device.type == "yawcam" %}
+            icon: "{% static 'images/camera_brown.png' %}",
+            {% elif device.type == "blueiris" %}
+            icon: "{% static 'images/camera_green.png' %}",
+            {% elif device.type == "ubnt" %}
+            icon: "{% static 'images/camera_orange.png' %}",
+            {% elif device.type == "go1984" %}
+            icon: "{% static 'images/camera_pink.png' %}",
+            {% elif device.type == "dlink" %}
+            icon: "{% static 'images/camera_red.png' %}",
+            {% elif device.type == "avtech" %}
+            icon: "{% static 'images/camera_yellow.png' %}",
+            {% elif device.type == "mqtt" %}
+            icon: "{% static 'images/mqtt.png' %}",
+            {% elif device.type == "dicom" %}
+            icon: "{% static 'images/dicom.png' %}",
+            {% elif device.type == "printer" %}
+            icon: "{% static 'images/printer.png' %}",
+            {% elif device.type == "sailor" %}
+            icon: "{% static 'images/ship.png' %}",
+            {% elif device.type == "rdp" %}
+            icon: "{% static 'images/rdp.png' %}",
+            {% elif device.type == "vnc" %}
+            icon: "{% static 'images/vnc.png' %}",
+            {% elif device.type == "screenshot" %}
+            icon: "{% static 'images/screen.png' %}",
+
+            {% elif device.type == "axc" %}
+            icon: "{% static 'images/axc.png' %}",
+            {% elif device.type == "modicon" %}
+            icon: "{% static 'images/modicon.png' %}",
+            {% elif device.type == "ab_ethernet" %}
+            icon: "{% static 'images/modicon.png' %}",
+            {% elif device.type == "xp277" %}
+            icon: "{% static 'images/xp277.png' %}",
+            {% elif device.type == "vxworks" %}
+            icon: "{% static 'images/vxworks.png' %}",
+            {% elif device.type == "eig" %}
+            icon: "{% static 'images/eig.png' %}",
+            {% elif device.type == "digi" %}
+            icon: "{% static 'images/digi.png' %}",
+            {% elif device.type == "windweb" %}
+            icon: "{% static 'images/windweb.png' %}",
+            {% elif device.type == "moxahttp" %}
+            icon: "{% static 'images/moxahttp.png' %}",
+            {% elif device.type == "lantronix" %}
+            icon: "{% static 'images/lantronix.png' %}",
+            {% elif device.type == "entelitouch" %}
+            icon: "{% static 'images/entelitouch.png' %}",
+            {% elif device.type == "energyict_rtu" %}
+            icon: "{% static 'images/energyict_rtu.png' %}",
+            {% elif device.type == "crestron" %}
+            icon: "{% static 'images/crestron.png' %}",
+            {% elif device.type == "wince" %}
+            icon: "{% static 'images/wince.png' %}",
+            {% elif device.type == "ipc@chip" %}
+            icon: "{% static 'images/ipc@chip.png' %}",
+            {% elif device.type == "addup" %}
+            icon: "{% static 'images/addup.png' %}",
+            {% elif device.type == "anybus" %}
+            icon: "{% static 'images/anybus.png' %}",
+            {% elif device.type == "windriver" %}
+            icon: "{% static 'images/windriver.png' %}",
+            {% elif device.type == "wago" %}
+            icon: "{% static 'images/wago.png' %}",
+            {% elif device.type == "niagara_audit" %}
+            icon: "{% static 'images/niagara_audit.png' %}",
+            {% elif device.type == "niagara_web_server" %}
+            icon: "{% static 'images/niagara_web_server.png' %}",
+            {% elif device.type == "trendnet" %}
+            icon: "{% static 'images/trendnet.png' %}",
+            {% elif device.type == "stulz_klimatechnik" %}
+            icon: "{% static 'images/stulz_klimatechnik.png' %}",
+            {% elif device.type == "scalance" %}
+            icon: "{% static 'images/scalance.png' %}",
+            {% elif device.type == "somfy" %}
+            icon: "{% static 'images/somfy.png' %}",
+            {% elif device.type == "simatic" %}
+            icon: "{% static 'images/simatic.png' %}",
+            {% elif device.type == "simatic_s7" %}
+            icon: "{% static 'images/simatic_s7.png' %}",
+            {% elif device.type == "schneider_electric" %}
+            icon: "{% static 'images/schneider_electric.png' %}",
+            {% elif device.type == "power_measurement" %}
+            icon: "{% static 'images/power_measurement.png' %}",
+            {% elif device.type == "power_logic" %}
+            icon: "{% static 'images/power_logic.png' %}",
+            {% elif device.type == "telemecanique_bxm" %}
+            icon: "{% static 'images/telemecanique_bxm.png' %}",
+            {% elif device.type == "schneider_web" %}
+            icon: "{% static 'images/schneider_web.png' %}",
+            {% elif device.type == "fujitsu_serverview" %}
+            icon: "{% static 'images/fujitsu_serverview.png' %}",
+            {% elif device.type == "eiportal" %}
+            icon: "{% static 'images/eiportal.png' %}",
+            {% elif device.type == "ilon" %}
+            icon: "{% static 'images/ilon.png' %}",
+            {% elif device.type == "webvisu" %}
+            icon: "{% static 'images/webvisu.png' %}",
+            {% elif device.type == "total_access" %}
+            icon: "{% static 'images/total_access.png' %}",
+
+            {% elif device.type == "webcamxp" %}
+            icon: "{% static 'images/webcamxp.png' %}",
+            {% elif device.type == "vivotek" %}
+            icon: "{% static 'images/vivotek.png' %}",
+            {% elif device.type == "mobotix" %}
+            icon: "{% static 'images/mobotix.png' %}",
+            {% elif device.type == "techwin" %}
+            icon: "{% static 'images/techwin.png' %}",
+            {% elif device.type == "iqinvision" %}
+            icon: "{% static 'images/iqinvision.png' %}",
+            {% elif device.type == "grandstream" %}
+            icon: "{% static 'images/grandstream.png' %}",
+            {% elif device.category == "healthcare" %}
+            icon: "{% static 'images/hospital.png' %}",
+            {% else %}
+            icon: "{% static 'images/black.png' %}",
+            {% endif %}
+        }),
+
+
+
+            {% endfor %}]
+
+
+
+    var options_googlemaps = {
+        minZoom: 1,
+        zoom: 4,
+        center: mumbai,
+        maxZoom: 17,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        styles: [
+        { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+        { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+        { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+        {
+          featureType: "administrative.locality",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#d59563" }],
+        },
+        {
+          featureType: "poi",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#d59563" }],
+        },
+        {
+          featureType: "poi.park",
+          elementType: "geometry",
+          stylers: [{ color: "#263c3f" }],
+        },
+        {
+          featureType: "poi.park",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#6b9a76" }],
+        },
+        {
+          featureType: "road",
+          elementType: "geometry",
+          stylers: [{ color: "#38414e" }],
+        },
+        {
+          featureType: "road",
+          elementType: "geometry.stroke",
+          stylers: [{ color: "#212a37" }],
+        },
+        {
+          featureType: "road",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#9ca5b3" }],
+        },
+        {
+          featureType: "road.highway",
+          elementType: "geometry",
+          stylers: [{ color: "#746855" }],
+        },
+        {
+          featureType: "road.highway",
+          elementType: "geometry.stroke",
+          stylers: [{ color: "#1f2835" }],
+        },
+        {
+          featureType: "road.highway",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#f3d19c" }],
+        },
+        {
+          featureType: "transit",
+          elementType: "geometry",
+          stylers: [{ color: "#2f3948" }],
+        },
+        {
+          featureType: "transit.station",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#d59563" }],
+        },
+        {
+          featureType: "water",
+          elementType: "geometry",
+          stylers: [{ color: "#17263c" }],
+        },
+        {
+          featureType: "water",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#515c6d" }],
+        },
+        {
+          featureType: "water",
+          elementType: "labels.text.stroke",
+          stylers: [{ color: "#17263c" }],
+        },
+      ],
+        streetViewControl: false
+    }
+
+    gm_map = new google.maps.Map(document.getElementById('google_world_map'), options_googlemaps);
+
+
+    var options_markerclusterer = {
+        gridSize: 20,
+        maxZoom: 18,
+        zoomOnClick: false,
+        imagePath:  'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+    };
+
+
+
+    var markerCluster = new MarkerClusterer(gm_map, clusterMarkers, options_markerclusterer);
+
+    google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
+
+        var markers = cluster.getMarkers();
+
+        var array = [];
+        var num = 0;
+
+        for(i = 0; i < markers.length; i++) {
+
+            num++;
+            array.push(markers[i].getTitle() + '<br>');
+        }
+        if (gm_map.getZoom() <= markerCluster.getMaxZoom()) {
+           infoWindow.setContent(markers.length + " markers<br>"+array.join(""));
+           infoWindow.setPosition(cluster.getCenter());
+           infoWindow.open(gm_map);
+        }
+    });
+
+
+
+    for(i = 0; i < clusterMarkers.length; i++) {
+       var marker = clusterMarkers[i];
+
+        google.maps.event.addListener(marker, 'click', (function(marker) {
+            return function() {
+           infoWindow.setContent(this.getTitle());
+           infoWindow.open(gm_map, this);
+            }
+        })(marker));
+    }
+
+}$(document).ready(function() {
+
+    // INITIALIZE GOOGLE MAPS
+    initialize();
+
+
+    // CLOSE
+    $('body').on('click', '#close-link', function() {
+        $('#toggle-photolist').fadeOut();
+        $('#close-overlay').fadeOut();
+    });
+
+});
+
+</script>
+        <script>
+
+        </script>
+<script src="{% static 'js/markerclusterer.js' %}"></script>
+<script src="{% static 'js/d3.wordcloud.js' %}" charset="UTF-8"></script>
+                <script src="{% static 'js/d3.layout.cloud.js' %}" charset="UTF-8"></script>
+<script type="text/javascript">
+     d3v3.wordcloud()
+        .size([500, 300])
+        .selector('#wordcloud')
+        .words([{% for vuln, link in vulns %} {text: "{{  vuln }}", size: "15"}, {% endfor %}])
+        .start();
+    </script>
+
+
+
+        <script type="text/javascript" src="{% static 'js/plugins/jquery/jquery.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/plugins/jquery/jquery-ui.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/plugins/bootstrap/bootstrap.min.js' %}"></script>
+        <!-- END PLUGINS -->
+
+        <!-- START THIS PAGE PLUGINS-->
+
+        <script type="text/javascript" src="{% static 'js/plugins/morris/raphael-min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/plugins/morris/morris.min.js' %}"></script>
+                <script type="text/javascript" src="{% static 'js/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+        <script type='text/javascript' src="{% static 'js/plugins/bootstrap/bootstrap-datepicker.js' %}"></script>
+
+
+        <!-- END THIS PAGE PLUGINS-->
+<!--                           <script type="text/javascript" src="js/plugins/morris/raphael-min.js"></script>-->
+<!--        <script type="text/javascript" src="js/plugins/morris/morris.min.js"></script>-->
+
+        <!-- START TEMPLATE -->
+        <script type="text/javascript" src="{% static 'js/plugins.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'js/actions.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/draw_charts_results.js' %}"></script>
+                <script>drawCharts({{ports|safe}}, {{city|safe}},{{category|safe}});</script>
+
+        <!-- END TEMPLATE -->
+
+    <!-- END SCRIPTS -->
+
+
+    </body>
+</html>
+
+{% endblock %}
+
+
+
+
+

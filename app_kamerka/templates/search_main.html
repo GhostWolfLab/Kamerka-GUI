@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colrolib Templates">
+    <meta name="author" content="Colrolib">
+    <meta name="keywords" content="Colrolib Templates">
+<link rel="stylesheet" href="{% static 'css/search_style.css'  %}">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-select@1.12.4/dist/css/bootstrap-select.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-select-country@4.0.0/dist/css/bootstrap-select-country.min.css" type="text/css" />
+
+
+    <link href="https://unpkg.com/mobius1-selectr@latest/dist/selectr.min.css" rel="stylesheet" type="text/css">
+<script src="https://unpkg.com/mobius1-selectr@latest/dist/selectr.min.js" type="text/javascript"></script>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Raleway'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+<style>.dropdown-toggle.btn-default {
+  position: relative;
+padding: 0px 20px 5px 5px;
+border: 4px solid #444;
+width: 100%;
+background: #FFF;
+z-index: 1;
+margin: 0px;
+font-size: 16px;
+min-height: 58px;
+width:360%;
+}
+</style>
+    <style>
+.dropdown-menu {
+     width:360%;
+}
+</style>
+    <style>
+        .selectr-selected {
+    position: relative;
+padding: 0px 20px 5px 5px;
+border: 4px solid #444;
+width: 100%;
+background: #FFF;
+z-index: 1;
+margin: 0px;
+font-size: 16px;
+min-height: 58px;
+}
+.selectr-placeholder {
+    color: black;
+    margin-top: 15px;
+}
+.selectr-tags {
+    padding: 5px;
+    }
+    .selectr-tag {
+
+    background: #1caf9a;
+    }
+    </style>
+
+    <style>
+        .file-upload {
+  background-color: #ffffff;
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+
+.file-upload-content {
+  display: none;
+  text-align: center;
+}
+
+.file-upload-input {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-upload-wrap {
+  margin-top: 20px;
+  border: 4px dashed  #87ceeb;
+  position: relative;
+}
+
+.image-dropping,
+.image-upload-wrap:hover {
+  background-color: #87ceeb;
+  border: 4px dashed #87ceeb;
+}
+
+.image-title-wrap {
+  padding: 0 15px 15px 15px;
+  color: #222;
+}
+
+.drag-text {
+  text-align: center;
+}
+
+.drag-text h3 {
+  text-transform: uppercase;
+  color: #0064d7;
+  padding: 60px 0;
+  font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+font-weight: 500;
+font-size: 22px;
+}
+
+.file-upload-image {
+  max-height: 200px;
+  max-width: 200px;
+  margin: auto;
+  padding: 20px;
+}
+
+
+    </style>
+    <!-- Title Page-->
+    <title>搜索 - ꓘamerka</title>
+
+    <link href="{% static 'css/search.css'  %}" rel="stylesheet" media="all">
+
+</head>
+
+<body>
+    <div class="page-wrapper bg-img-1 p-t-200 p-b-120" id="background">
+
+        <div class="wrapper wrapper--w900">
+            <h1>ꓘamerka</h1>
+            <div class="card card-4">
+                <div class="card-body">
+                    <ul class="tab-list">
+                        <li class="tab-list__item active">
+                            <a class="tab-list__link" href="#tab1" onclick="replaceback()" data-toggle="tab">工业控制系统</a>
+                        </li>
+                        <li class="tab-list__item">
+                            <a class="tab-list__link" href="#tab2"  id='tab' onclick="replace()" data-toggle="tab">物联网</a>
+                        </li>
+                         <li class="tab-list__item">
+                            <a class="tab-list__link" href="#tab3"  id='tab4' onclick="replace2()" data-toggle="tab">医疗系统</a>
+                        </li>
+                        <li class="tab-list__item">
+                            <a class="tab-list__link" href="#tab5"  id='tab6' onclick="replace3()" data-toggle="tab">上传NMAP扫描</a>
+                        </li>
+
+
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab1">
+                                                                           <h3><center style="color: #00E1FF;">国家</center></h3>
+                            <form method="POST" action="">
+
+	 <select class="selectpicker countrypicker" name='country' id='country' data-default="CA" data-flag="true" ></select>
+
+<br>
+                                <br>
+                                                <h3><center style="color: #00E1FF;">设备</center></h3>
+
+                                                <select id="ics_country" multiple name="ics_country">
+                                                    <option value="gestrip">General Electric</option>
+  													<option value="hart">HartIP</option>
+  													<option value="pcworx">PcWorx</option>
+                                                    <option value="mitsubishi">Mitsubishi</option>
+  													<option value="omron">Omron</option>
+  													<option value="redlion">RedLion</option>
+                                                    <option value="codesys">Codesys</option>
+  													<option value="iec">IEC</option>
+  													<option value="proconos">ProconOS</option>
+                                                    <option value="ab_ethernet">AB/Ethernet</option>
+
+                                                    <option value="niagara">Niagara</option>
+  													<option value="modbus">Modbus</option>
+  													<option value="bacnet">BacNET</option>
+                                                    <option value="siemens">Siemens</option>
+  													<option value="ethernetip">Ethernet/IP</option>
+  													<option value="dnp3">DNP3</option>
+
+                                                    <option value="plantvisor">PlantVisor</option>
+                                                    <option value="moxa">Moxa</option>
+  													<option value="akcp">AKCP</option>
+  													<option value="spidercontrol">SpiderControl</option>
+                                                    <option value="tank">Tanks</option>
+  													<option value="iq3">IQ3</option>
+  													<option value="is2">IS2</option>
+                                                    <option value="iologik">Iologik</option>
+  													<option value="vtscada">VTScada</option>
+  													<option value="zworld">Z-World</option>
+                                                    <option value="nordex">Nordex</option>
+                                                    <option value="sailor">Sailor VSAT</option>
+                                                    <option value="nmea">NMEA</option>
+
+                                                    <option value="axc">AXC PLC</option>
+                                                    <option value="modicon">Modicon</option>
+  													<option value="xp277">XP277 HMI</option>
+  													<option value="vxworks">VxWorks</option>
+                                                    <option value="eig">Nexus 1500</option>
+  													<option value="digi">Digi Transport</option>
+  													<option value="windweb">Windcube</option>
+                                                    <option value="moxahttp">Moxahttp</option>
+  													<option value="lantronix">Lantronix</option>
+  													<option value="entelitouch">Delta enteliTouch</option>
+                                                    <option value="energyict_rtu">EnergyICT</option>
+                                                    <option value="saphir">SAPHIR</option>
+                                                    <option value="crestron">Crestron</option>
+                                                    <option value="ipc@chip">IPC@CHIP</option>
+                                                     <option value="addup">AdduPI</option>
+                                                    <option value="anybus">AnyBus</option>
+  													<option value="wago">Wago</option>
+                                                    <option value="niagara_audit">Niagara Audit</option>
+  													<option value="niagara_web_server">Niagara Web Server</option>
+  													<option value="trendnet">Trendnet</option>
+                                                    <option value="stulz_klimatechnik">Stulz Klimatechnik</option>
+  													<option value="somfy">Somfy</option>
+  													<option value="scalance">Scalance</option>
+                                                    <option value="simatic">Simatic</option>
+                                                    <option value="simatic_s7">Simatic S7</option>
+                                                    <option value="schneider_electric">Schneider Electric</option>
+                                                    <option value="power_measurement">Power Measurement</option>
+  													<option value="power_logic">PowerLogic</option>
+                                                    <option value="telemecanique_bxm">Telemecanique BMX</option>
+  													<option value="schneider_web">Schneider-WEB</option>
+  													<option value="fujitsu_serverview">Fujitsu Serverview</option>
+                                                    <option value="eiportal">eiPortal</option>
+                                                    <option value="ilon">i.LON</option>
+                                                    <option value="webvisu">Webvisu</option>
+                                                    <option value="total_access">Total Access</option>
+
+                                                    <option value="vantage_infusion">Vantage InFusion</option>
+                                                    <option value="automation_direct_hmi">AutomationDirect HMI</option>
+                                                    <option value="sensoteq">Sensoteq</option>
+  													<option value="sicon-8">Sicon-8</option>
+                                                    <option value="flotrac">FloTrac</option>
+  													<option value="innotech_bms">Innotech BMS</option>
+  													<option value="skylog">Skylog</option>
+                                                    <option value="miele@home">Miele@home</option>
+                                                    <option value="alphacom">Alphacom</option>
+                                                    <option value="simplex_grinnell">SimplexGrinnell</option>
+                                                    <option value="bosch_security">Bosch Security</option>
+
+
+                                                    <option value="other_hmi">Other HMI</option>
+                                                    <option value="vantage_infusion">Vantage InFusion</option>
+                                                    <option value="fronius">Fronius</option>
+                                                    <option value="webview">Webview</option>
+  													<option value="siemens_Sm@rtClient">Siemens Sm@rtClient</option>
+                                                    <option value="WAGO">WAGO</option>
+  													<option value="sensatronics">Sensatronics</option>
+  													<option value="extron">Extron Electronics</option>
+                                                    <option value="mikrotik_streetlighs">Mikrotik Streetlight</option>
+                                                    <option value="kesseltronics">Kesseltronics</option>
+                                                    <option value="unitronics">Unitronics</option>
+                                                    <option value="atvise">Atvise</option>
+                                                    <option value="clearSCADA">ClearSCADA</option>
+                                                    <option value="youless">Youless</option>
+  													<option value="DLILPC">DLILPC</option>
+                                                    <option value="intelliSlot">IntelliSlot</option>
+  													<option value="temperature_monitor">Temperature Monitor</option>
+  													<option value="CirCarLife">CirCarLife</option>
+                                                    <option value="web_scada">Web Scada</option>
+                                                    <option value="kaco">KACO</option>
+                                                    <option value="indect_parkway">IndectParkway</option>
+                                                    <option value="intuitive_Controller">Intuitive Controller</option>
+                                                    <option value="intuitive_controller_2">Intuitive Controller 2</option>
+  													<option value="homeLYnk">homeLYnk</option>
+                                                    <option value="APC">APC</option>
+  													<option value="netio">Netio</option>
+  													<option value="asi_controls">ASI Controls</option>
+                                                    <option value="myscada">MyScada</option>
+                                                    <option value="iB-COM">iB-COM</option>
+                                                    <option value="building_operation_webstation">Building Operations</option>
+                                                    <option value="ftp_scada">FTP Scada</option>
+                                                  <option value="CS121">CS121 UPS</option>
+
+
+                                                  <option value="climatix">Siemens Building Technologies Climatix</option>
+                                                  <option value="bas_scada">BAS SCADA Service</option>
+                                                  <option value="watt_router">SOLAR controls product server</option>
+                                                 <option value="doors">Door access</option>
+                                                 <option value="saferoads">Saferoads Signs</option>
+                                                 <option value="xzeres">XZeres Wind Turbine</option>
+                                                    <option value="doorbird">Doorbird</option>
+
+
+
+                                                    <option value="jeedom">Jeedom</option>
+                                                    <option value="pwrctrl">NET-PwrCtrl</option>
+                                                    <option value="heatmiser_thermostat">Heatmiser Thermostat</option>
+                                                    <option value="xpanel">Crestron XPanel</option>
+                                                    <option value="c4_max">C4 Vehicle GPS Trackers</option>
+                                                    <option value="universal_devices">Universal Devices</option>
+                                                    <option value="dasdec">Digital Alert Systems</option>
+                                                    <option value="brightsign">BrightSign</option>
+                                                    <option value="leica">Leica Geosystems</option>
+                                                    <option value="hughesnet">Hughesnet</option>
+                                                    <option value="beward_door">Beward Door Station</option>
+                                                    <option value="wallbox">Wallbox</option>
+                                                    <option value="acadia">Acadia</option>
+                                                    <option value="gnss">GNSS</option>
+                                                    <option value="traccar">Traccar</option>
+                                                    <option value="trimble">Trimble Navigation</option>
+                                                    <option value="spacelynk">SpaceLynk</option>
+
+
+
+
+
+
+                                                                                                   </select>
+<br>
+
+
+<input type="checkbox" id="test1" name="all" /><label for="test1"><span class="ui"></span> <h4>所有结果 </h4></label>
+
+                                <input type="checkbox" id="test2" name="own_database"/><label style="float:right" for="test2"><span class="ui"></span> <h4>自己的数据库</h4></label>
+
+
+                                <br>
+                                <br>
+
+<button class="btn-submit m-t-0" type="submit">搜索</button>
+
+
+
+                            </form>
+                        </div>
+
+                        <div class="tab-pane" id="tab2">
+
+
+                                                        <form method="POST" action="">
+                                                           <h3><center style="color:#00E1FF;">坐标</center></h3>
+
+                                                            <section class="webdesigntuts-workshop">
+		<input type="search" name="coordinates" id="coordinates" placeholder="Search...">
+</section>
+                          <br>    <br><br><h3><center style="color:#00E1FF;">摄像机</center></h3>
+
+                                                           <select multiple name="coordinates_search" id="cam" >
+                                                      													 <option value="webcam">Webcam</option>
+  													<option value="rtsp">RTSP</option>
+                                                     <option value="sq">SQ-WEBCAM</option>
+  													<option value="ipcamera">IPCamera_Logo</option>
+                                                     <option value="yawcam">Yawcam</option>
+  													<option value="blueiris">Blue Iris</option>
+
+                                                    <option value="ubnt">UBNT</option>
+  													<option value="go1984">go1984</option>
+                                                     <option value="dlink">Dlink</option>
+  													<option value="ipcamera">IPCAMERA</option>
+                                                     <option value="avtech">AVTech</option>
+  													<option value="adh">ADH</option>
+                                                    <option value="axis">Axis Live</option>
+                                                    <option value="netwave">Netwave</option>
+                                                               <option value="bbvs">SecuritySpy</option>
+                                                               <option value="baudisch">Baudisch</option>
+                                                               <option value="loxone_intercom">Loxone Intercom</option>
+
+                                                    <option value="amcrest">Amcrest</option>
+
+                                                               				<option value="techwin">Techwin</option>
+                                                     <option value="webcamxp">WebcamXP</option>
+  													<option value="vivotek">Vivotek</option>
+                                                     <option value="mobotix">Mobotix</option>
+  													<option value="iqinvision">IQinVision</option>
+                                                    <option value="grandstream">Grandstream</option>
+                                                    <option value="videoiq">VideoIQ</option>
+                                                    <option value="skyline">Skyline</option>
+                                                               <option value="idss">Intelligent Digital Security System</option>
+                                                               <option value="webiopi">Webiopi</option>
+                                                               <option value="iobroker">io.Broker</option>
+                                                               <option value="comelit">Comelit</option>
+
+
+                                                </select>
+
+                                        <br>
+                                                                                   <h3><center style="color:#00E1FF;">其他</center></h3>
+
+                                <select name="coordinates_search" id='other' multiple>
+                                                     <option value="mqtt">MQTT</option>
+  													<option value="printer">Printers</option>
+                                                    <option value="rdp">RDP</option>
+                                                     <option value="vnc">VNC</option>
+                                                     <option value="screenshot">Screenshot</option>
+                                                   <option value="contec">Contec Smart Home</option>
+                                                   <option value="lutron">lutron</option>
+
+                                                    <option value="skyline">Skyline Billboards</option>
+
+
+                                                </select>
+                               <br>
+                                   <h3><center style="color: #00E1FF;">ICS</center></h3>
+                                                <select name="coordinates_search" multiple id="icsiot">
+                                                     <option value="niagara">Niagara</option>
+  													<option value="modbus">Modbus</option>
+  													<option value="bacnet">BacNET</option>
+                                                    <option value="siemens">Siemens</option>
+  													<option value="ethernetip">Ethernet/IP</option>
+  													<option value="dnp3">DNP3</option>
+                                                    <option value="gestrip">General Electric</option>
+  													<option value="hart">HartIP</option>
+  													<option value="pcworx">PcWorx</option>
+                                                    <option value="mitsubishi">Mitsubishi</option>
+  													<option value="omron">Omron</option>
+  													<option value="redlion">RedLion</option>
+                                                    <option value="codesys">Codesys</option>
+  													<option value="iec">IEC</option>
+  													<option value="proconos">ProconOS</option>
+
+                                                    <option value="plantvisor">PlantVisor</option>
+                                                    <option value="moxa">Moxa</option>
+  													<option value="akcp">AKCP</option>
+  													<option value="spidercontrol">SpiderControl</option>
+                                                    <option value="tank">Tanks</option>
+  													<option value="iq3">IQ3</option>
+  													<option value="ISis22">IS2</option>
+                                                    <option value="iologik">Iologik</option>
+  													<option value="vtscada">VTScada</option>
+  													<option value="zworld">Z-World</option>
+                                                    <option value="nordex">Nordex</option>
+
+                                                     <option value="axc">AXC PLC</option>
+                                                    <option value="modicon">Modicon</option>
+  													<option value="xp277">XP277 HMI</option>
+  													<option value="vxworks">VxWorks</option>
+                                                    <option value="eig">Nexus 1500</option>
+  													<option value="digi">Digi Transport</option>
+  													<option value="windweb">Windcube</option>
+                                                    <option value="moxahttp">Moxahttp</option>
+  													<option value="lantronix">Lantronix</option>
+  													<option value="entelitouch">Delta enteliTouch</option>
+                                                    <option value="energyict_rtu">EnergyICT</option>
+                                                    <option value="crestron">Crestron</option>
+                                                    <option value="ipc@chip">IPC@CHIP</option>
+                                                     <option value="addup">AdduPI</option>
+                                                    <option value="anybus">AnyBus</option>
+  													<option value="wago">Wago</option>
+                                                    <option value="niagara_audit">Niagara Audit</option>
+  													<option value="niagara_web_server">Niagara Web Server</option>
+  													<option value="trendnet">Trendnet</option>
+                                                    <option value="stulz_klimatechnik">Stulz Klimatechnik</option>
+  													<option value="somfy">Somfy</option>
+  													<option value="scalance">Scalance</option>
+                                                    <option value="simatic">Simatic</option>
+                                                    <option value="simatic_s7">Simatic S7</option>
+                                                    <option value="schneider_electric">Schneider Electric</option>
+                                                    <option value="power_measurement">Power Measurement</option>
+  													<option value="power_logic">PowerLogic</option>
+                                                    <option value="telemecanique_bxm">Telemecanique BMX</option>
+  													<option value="schneider_web">Schneider-WEB</option>
+  													<option value="fujitsu_serverview">Fujitsu Serverview</option>
+                                                    <option value="eiportal">eiPortal</option>
+                                                    <option value="ilon">i.LON</option>
+                                                    <option value="webvisu">Webvisu</option>
+
+                                                    <option value="total_access">Total Access</option>
+                                                    <option value="vantage_infusion">Vantage InFusion</option>
+                                                    <option value="automation_direct_hmi">AutomationDirect HMI</option>
+                                                    <option value="sensoteq">Sensoteq</option>
+  													<option value="sicon-8">Sicon-8</option>
+                                                    <option value="flotrac">FloTrac</option>
+  													<option value="innotech_bms">Innotech BMS</option>
+  													<option value="skylog">Skylog</option>
+                                                    <option value="miele@home">Miele@home</option>
+                                                    <option value="alphacom">Alphacom</option>
+                                                    <option value="simplex_grinnell">SimplexGrinnell</option>
+                                                    <option value="bosch_security">Bosch Security</option>
+
+                                                    <option value="other_hmi">Other HMI</option>
+                                                    <option value="fronius">Fronius</option>
+                                                    <option value="webview">Webview</option>
+  													<option value="siemens_Sm@rtClient">Siemens Sm@rtClient</option>
+                                                    <option value="WAGO">WAGO</option>
+  													<option value="sensatronics">Sensatronics</option>
+  													<option value="extron">Extron Electronics</option>
+                                                    <option value="mikrotik_streetlighs">Mikrotik Streetlight</option>
+                                                    <option value="kesseltronics">Kesseltronics</option>
+                                                    <option value="unitronics">Unitronics</option>
+                                                    <option value="atvise">Atvise</option>
+                                                    <option value="clearSCADA">ClearSCADA</option>
+                                                    <option value="youless">Youless</option>
+  													<option value="DLILPC">DLILPC</option>
+                                                    <option value="intelliSlot">IntelliSlot</option>
+  													<option value="temperature_monitor">Temperature Monitor</option>
+  													<option value="CirCarLife">CirCarLife</option>
+                                                    <option value="web_scada">Web Scada</option>
+                                                    <option value="kaco">KACO</option>
+                                                    <option value="indect_parkway">IndectParkway</option>
+                                                    <option value="intuitive_Controller">Intuitive Controller</option>
+                                                    <option value="intuitive_controller_2">Intuitive Controller 2</option>
+  													<option value="homeLYnk">homeLYnk</option>
+                                                    <option value="APC">APC</option>
+  													<option value="netio">Netio</option>
+  													<option value="asi_controls">ASI Controls</option>
+                                                    <option value="myscada">MyScada</option>
+                                                    <option value="iB-COM">iB-COM</option>
+                                                    <option value="building_operation_webstation">Building Operations</option>
+                                                    <option value="ftp_scada">FTP Scada</option>
+
+                                                    <option value="apc_ftp">APC FTP</option>
+  													<option value="network_management_card">Network Management Card APC</option>
+  													<option value="wemo_insight">Wemo Insight</option>
+                                                    <option value="connect_ups">ConnectUPS</option>
+                                                    <option value="upshttpd">upshttpd</option>
+                                                    <option value="poweragent">PowerAgent</option>
+                                                    <option value="CS121">CS121 UPS</option>
+
+
+                                                </select>
+<br>
+                                                            <input type="checkbox" id="test3" name="all" /><label for="test3"><span class="ui"></span> <h4>所有结果 </h4></label>
+
+                                <input type="checkbox" id="test4" name="own_database"/><label style="float:right" for="test4"><span class="ui"></span> <h4>自己的数据库</h4></label>
+
+
+                                <br>
+                                <br>
+<button class="btn-submit m-t-0" type="submit">搜索</button>
+
+
+
+
+
+
+
+                            </form>
+
+
+                        </div>
+                         <div class="tab-pane" id="tab3">
+                                                                           <h3><center style="color: #00E1FF;">国家</center></h3>
+                            <form method="POST" action="">
+
+	 <select class="selectpicker countrypicker" name='country_healthcare' id='country_healthcare' data-default="CA" data-flag="true" ></select>
+
+<br>
+                                <br>
+                                                <h3><center style="color: #00E1FF;">设备</center></h3>
+
+                                                <select id="healthcare" multiple name="healthcare">
+                                                    <option value="dicom">Dicom</option>
+                                                    <option value="zoll">Zoll</option>
+  													<option value="perioperative">GE Perioperative</option>
+  													<option value="wall_of_analytics">Wall of Analytics</option>
+                                                    <option value="viztek_exa">VIZTEK EXA</option>
+  													<option value="medweb">Medweb</option>
+  													<option value="intuitim">Intuitim</option>
+                                                    <option value="medcon_archiving_system">Medcon Archiving System</option>
+  													<option value="orthanc_explorer">Orthanc Explorer</option>
+  													<option value="osirix">OsiriX</option>
+                                                    <option value="clari_pacs">ClariPACS</option>
+  													<option value="siste_lab">SisteLAB</option>
+  													<option value="opalweb">Opalweb</option>
+                                                    <option value="neuropro">Neuropro</option>
+  													<option value="tmw_document_imaging">TMW Document Imaging</option>
+  													<option value="erez">eRez Imaging</option>
+                                                    <option value="gluco_care">GlucoCare igc</option>
+                                                    <option value="glucose_guide">Glucose guide</option>
+  													<option value="grandmed_glucose">Grandmed Glucose</option>
+  													<option value="philips_digital_pathology">Philips Digital Pathology</option>
+                                                    <option value="tricore_pathology">Tricore Pathology</option>
+  													<option value="appsmart_ophthalmology">Appsmart Pathology</option>
+  													<option value="chs_ophthalmology">CHS Ophthalmology</option>
+                                                    <option value="ram_soft">RamSoft</option>
+  													<option value="xnat">XNAT</option>
+  													<option value="iris_emr">Iris EMR</option>
+                                                    <option value="eclinicalworks_emr">eClinicalWorks EMR</option>
+                                                    <option value="open_emr">OpenEMR</option>
+                                                    <option value="oscar_emr">OSCAR EMR</option>
+                                                    <option value="wm_emr">WM EMR</option>
+                                                    <option value="doctors_partner_emr">DoctorsPartner EMR</option>
+  													<option value="mckesson_radiology">McKesson Radiology</option>
+  													<option value="kodak_carestream">KODAK CARESTREAM PACS</option>
+                                                    <option value="meded">MedEd</option>
+  													<option value="centricity_radiology">Centricity Radiology</option>
+  													<option value="openeyes">OpenEyes</option>
+                                                    <option value="orthanc">Orthanc</option>
+  													<option value="horos">Horos</option>
+  													<option value="open_mrs">OpenMRS</option>
+                                                    <option value="mirth_connect">Mirth Connect</option>
+                                                    <option value="acuity_logic">AcuityLogic</option>
+                                                    <option value="optical_coherence_tomography">Optical Coherence Tomography</option>
+                                                    <option value="philips_intellispace">Philips Intellispace</option>
+                                                     <option value="vitrea_intelligence">Vitrea intelligence</option>
+                                                    <option value="phenom_electron_microscope">Phenom-World Microscope</option>
+  													<option value="meddream_dicom_viewer">MedDream DICOM Viewer</option>
+  													<option value="merge_pacs">Merge PACS</option>
+                                                    <option value="synapse_3d">Synapse 3D</option>
+  													<option value="navify">NAVIFY® Oncology Workflow</option>
+  													<option value="telemis_tmp">Telemis TMP</option>
+                                                    <option value="brainlab">Brainlab</option>
+  													<option value="nexus360">Nexus360</option>
+  													<option value="brain_scope">BrainScope</option>
+                                                    <option value="omero_microscopy">OMERO Microscopy</option>
+                                                    <option value="meditech">Meditech</option>
+                                                    <option value="cynetics">Cynetics</option>
+                                                    <option value="promed">Promed</option>
+  													<option value="carestream">Carestream</option>
+                                                    <option value="carestream_web">Carestream web</option>
+  													<option value="vet_rocket">Vet Rocket</option>
+  													<option value="vet_view">VetView</option>
+                                                    <option value="lumed">LUMED</option>
+                                                    <option value="infinitt">INFINITT</option>
+                                                    <option value="labtech">Labtech</option>
+                                                    <option value="progetti">Progetti</option>
+                                                    <option value="qt_medical">QT Medical</option>
+  													<option value="huvitz_optometric">Huvitz Optometric</option>
+  													<option value="optos_advance">OptosAdvance</option>
+                                                    <option value="optovue">Optovue</option>
+                                                    <option value="asthma_monitoring_adamm">Asthma Monitoring ADAMM</option>
+                                                    <option value="pregnabit">Pregnabit</option>
+                                                    <option value="prime_clinical_systems">Prime Clinical Systems</option>
+  													<option value="omni_explorer">OmniExplorer</option>
+                                                    <option value="avizia">Avizia</option>
+  													<option value="operamed">Operamed</option>
+  													<option value="early_sense">EarlySense</option>
+                                                    <option value="tunstall">Tunstall</option>
+                                                    <option value="clini_net">CliniNet</option>
+                                                    <option value="intelesens">Intelesens</option>
+                                                    <option value="kb_port">KbPort</option>
+                                                    <option value="nursecall_message_service">Nursecall Message Service</option>
+                                                    <option value="image_information_systems">IMAGE Information Systems</option>
+                                                    <option value="agilent_technologies">Agilent Technologies</option>
+                                                    <option value="praxis_portal2">Medigration PraxisPortal2</option>
+                                                    <option value="xero_viewer">XERO Viewer</option>
+
+                                                                                                   </select>
+<br>
+
+
+<input type="checkbox" id="test7" name="all" /><label for="test7"><span class="ui"></span> <h4>所有结果 </h4></label>
+
+                                <input type="checkbox" id="test8" name="own_database"/><label style="float:right" for="test7"><span class="ui"></span> <h4>自己的数据库</h4></label>
+
+
+                                <br>
+                                <br>
+
+<button class="btn-submit m-t-0" type="submit">搜索</button>
+
+
+                            </form>
+                        </div>
+
+
+
+
+                            <div class="tab-pane" id="tab5">
+                            <form method="post" action="" enctype="multipart/form-data">
+
+
+<!--  <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>-->
+<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <div class="image-upload-wrap">
+    <input class="file-upload-input" type='file' name="myfile" onchange="readURL(this);"/>
+    <div class="drag-text">
+      <h3>以XML格式上传NMAP扫描 </h3>
+    </div>
+  </div>
+                                <div class="file-upload-content">
+    <div class="image-title-wrap">
+        <span style='color:white;font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+font-weight: 500;
+font-size: 22px;' class="image-title">
+            </span>
+    </div>
+  </div>
+                                <br>
+
+<!--    <input type="file" name="myfile">-->
+    <button class="btn-submit m-t-0" type="submit">上传</button>
+  </form>
+                        </div>
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+     <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+  <script src="https://unpkg.com/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-select@1.12.4/dist/js/bootstrap-select.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-select-country@4.0.0/dist/js/bootstrap-select-country.min.js"></script>
+<script>
+    function readURL(input) {
+  if (input.files && input.files[0]) {
+
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('.image-upload-wrap').hide();
+      $('.image-title').html(input.files[0].name);
+
+<!--      $('.file-upload-image').html(input.files[0].name);-->
+      $('.file-upload-content').show();
+
+    };
+
+    reader.readAsDataURL(input.files[0]);
+
+  } else {
+    removeUpload();
+  }
+}
+</script>
+
+    <script>
+function replaceback() {
+a = document.querySelector(".bg-img-1").style.background = 'url({% static 'images/back1.jpg' %}) center center/cover no-repeat';
+}
+
+function replace() {
+a = document.querySelector(".bg-img-1").style.background = 'url({% static 'images/back2.jpg' %}) center center/cover no-repeat';
+}
+function replace2() {
+a = document.querySelector(".bg-img-1").style.background = 'url({% static 'images/back3.jpg' %}) center center/cover no-repeat';
+}
+function replace3() {
+a = document.querySelector(".bg-img-1").style.background = 'url({% static 'images/back4.jpg' %}) center center/cover no-repeat';
+document.getElementByClassName("rapper wrapper--w900").getElementsByTagName('h1')[0].style.color = "#fff";
+
+}
+</script>
+    <script>
+			$('.country').countrypicker();
+		</script>
+
+    <script>
+        a = new Selectr('#ics_country', {
+	searchable: true,
+	width: 300,
+		multiple: true,
+
+});
+a.selectedValues = [];
+</script>
+    <script>
+        a = new Selectr('#healthcare', {
+	searchable: true,
+	width: 300,
+		multiple: true,
+
+});
+a.selectedValues = [];
+</script>
+    <script>
+new Selectr('#icsiot', {
+	searchable: true,
+	width: 300,
+	multiple: true,
+});
+new Selectr('#cam', {
+	searchable: true,
+	width: 300
+});new Selectr('#other', {
+	searchable: true,
+	width: 300
+});
+    </script>
+</body>
+</html>
