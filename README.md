@@ -61,7 +61,7 @@ https://www.icscybersecurityconference.com/intelligence-gathering-on-u-s-critica
 
 ### 运行命令
 ```
-git clone https://github.com/woj-ciech/Kamerka-GUI/
+git clone https://github.com/GhostWolfTeam/Kamerka-GUI-Chinese-translation/
 pip3 install -r requirements.txt
 python3 manage.py makemigrations
 python3 manage.py migrate
